@@ -28,7 +28,7 @@ prompt APPLICATION 136746 - Copy From Excel to IG
 -- Application Export:
 --   Application:     136746
 --   Name:            Copy From Excel to IG
---   Date and Time:   20:02 Sonntag März 26, 2023
+--   Date and Time:   21:29 Sonntag März 26, 2023
 --   Exported By:     BALDOGI.RICHARD@REMEDIOS.HU
 --   Flashback:       0
 --   Export Type:     Component Export
@@ -212,7 +212,7 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_attribute_type=>'TEXT'
 ,p_is_required=>true
 ,p_is_translatable=>false
-,p_help_text=>'Name of the Interactive Grid where the code must be executed.'
+,p_help_text=>'Name of the Interactive Grid where the code must be executed. An ID have to be defined in the Static ID attribute. For example: emp_ig'
 );
 wwv_flow_imp_shared.create_plugin_attribute(
  p_id=>wwv_flow_imp.id(65033170883125108817)
@@ -228,6 +228,9 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_depending_on_has_to_exist=>true
 ,p_depending_on_condition_type=>'NOT_EQUALS'
 ,p_depending_on_expression=>'PASTE'
+,p_help_text=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'<p>When an imported excel file is being initialized it can contain multiple worksheets and the user have to choose which one should be imported to the IG.</p>',
+'<p>An empty Select List must be created in the Page Designer which will be filled later with different sheetnames that were defined in the workbook.</p>'))
 );
 wwv_flow_imp_shared.create_plugin_attribute(
  p_id=>wwv_flow_imp.id(65963329616513080654)
@@ -245,6 +248,14 @@ wwv_flow_imp_shared.create_plugin_attribute(
 ,p_depending_on_condition_type=>'EQUALS'
 ,p_depending_on_expression=>'EXPORTSELECTED'
 ,p_lov_type=>'STATIC'
+,p_help_text=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'There are 3 available extension types that can be used during the append and export of an excel and Interactive Grid:',
+'',
+'<ul>',
+' <li>XLS - Microsoft Excel Spreadsheet</li>',
+' <li>XLSX - Microsoft Excel Open XML Spreadsheet</li>',
+' <li>XLSB - Microsoft Excel Binary Workbook File</li>',
+'</ul>'))
 );
 wwv_flow_imp_shared.create_plugin_attr_value(
  p_id=>wwv_flow_imp.id(65964080953689100415)
