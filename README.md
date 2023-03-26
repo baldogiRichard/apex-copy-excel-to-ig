@@ -1,6 +1,10 @@
 # apex-copy-excel-to-ig
 
-This Dynamic Action plug-in helps to easily copy - paste, import and append Excel files and Interactive Grid (IG) reports together.
+This Dynamic Action plug-in supports Copy - Paste, Import and Appending actions from an Excel file to an editable Interactive Grid (IG) report.
+
+Minimum requirement: Oracle Application Expresss 19.1
+
+This plug-in uses the <a href="https://sheetjs.com//" rel="nofollow">SheetJS</a> library.
 
 # setup
 
