@@ -27,7 +27,7 @@
         "plugin" : {
           "internalName" : "COM.COPYEXCELTOIG.PLUGIN",
           "type" : "dynamic action",
-          "demo" : "", //tölteni !!!!!!!!!!!!
+          "demo" : "https://apex.oracle.com/pls/apex/r/rmzrt/apex-plugins-by-richard-baldogi/copy-excel-to-interactive-grid",
           "previewImage" : "https://raw.githubusercontent.com/baldogiRichard/apex-copy-excel-to-ig/main/exceltoig.gif"
         }
       }
