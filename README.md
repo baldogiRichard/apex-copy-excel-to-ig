@@ -6,6 +6,8 @@ Minimum requirement: Oracle Application Expresss 19.1
 
 This plug-in uses the <a href="https://sheetjs.com/" rel="nofollow">SheetJS</a> library CE edition.
 
+<img width="950" alt="image" src="https://user-images.githubusercontent.com/100072414/227924485-0c9968d6-0f89-4161-8a45-4eac47abaa2a.png">
+
 # setup
 
 You can check each setup in my downloadable <a href="https://github.com/baldogiRichard/plug-in-site" rel="nofollow">Sample Application: APEX Plug-ins by Richard Baldogi</a>
