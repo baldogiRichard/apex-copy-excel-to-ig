@@ -4,7 +4,7 @@ This Dynamic Action (DA) plug-in supports Copy - Paste, Import and Appending act
 
 Minimum requirement: Oracle Application Expresss 19.1
 
-This plug-in uses the <a href="https://sheetjs.com/" rel="nofollow">SheetJS</a> library.
+This plug-in uses the <a href="https://sheetjs.com/" rel="nofollow">SheetJS</a> library CE edition.
 
 # setup
 
