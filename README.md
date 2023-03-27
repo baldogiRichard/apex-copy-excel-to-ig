@@ -32,3 +32,7 @@ There are 3 Dynamic Action types which can be used:
  <li>When a file is selected in the browser and record(s) are selected in the IG:<br> In this case the headers will be used from the file and the selected rows from the IG will be appended to the file.</li>
  <li>Only record(s) are selected from the IG: <br> In this case the headers and the selected rows will be exported with the name and extension that was defined in attribute "filename" and attribute "extension".</li>
 </ul>
+
+#
+
+License MIT
