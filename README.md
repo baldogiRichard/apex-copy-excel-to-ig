@@ -22,8 +22,7 @@ There are 3 Dynamic Action types which can be used:
 <br>
 <b>Paste from clipboard</b>
 <br>
-<p>In this case the copied data from the excel file will be pasted to the IG.</p>
-<p>Please note that the insertion will work only if the user first copies the data (CTRL+C) then pastes it to the site (CTRL+V) and then clicks the button if it were created under a click event.</p>
+<p>In this case the copied data from the excel file will be pasted to the IG. Please note that the insertion will work only if the user first copies the data (CTRL+C) then pastes it to the site (CTRL+V) and then clicks the button if it were created under a click event.</p>
 <b>Export selected to Excel</b>
 <br>
 <p>There are 2 logics defined:</p>
