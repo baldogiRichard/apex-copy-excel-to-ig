@@ -22,7 +22,14 @@ CETOIG.main = function(config) {
         var selectedSheetName = apex.item(selectListName).getValue();
         workSheet = workbook.Sheets[selectedSheetName];
         workSheet = CETOIG.sheetTo2dArray(workSheet);
-        CETOIG.insertNewValues(workSheet,iGNameVal);
+
+        //if sheet is empty display error message
+        if (workSheet.length) {
+            CETOIG.insertNewValues(workSheet,iGNameVal);
+        }
+        else {
+            apex.message.alert("Worksheet " + selectedSheetName + " is empty!");
+        }
     }
     //Paste from clipboard
     else if(config.mode === "PASTE") {
@@ -65,7 +72,6 @@ CETOIG.pasteFromClipboardPrepare = function() {
 CETOIG.pasteFromClipboardExecute = function(pIGName) {
     workSheet = workbook.Sheets[workbook.SheetNames[0]];
     workSheet = CETOIG.sheetTo2dArray(workSheet);
-    console.log(workbook);
     CETOIG.insertNewValues(workSheet,pIGName);
 }
 
@@ -83,40 +89,46 @@ CETOIG.exportSelectedRows = function(pFileName,pIGName,pSelectList,pExtensionTyp
 
     //if there is an imported file then use its headers otherwise the ones
     //that's provided by the IG if include header is selected
-    if (workbook) {
-        workSheet = workbook.Sheets[selectedSheetName];
-        workSheet = CETOIG.sheetTo2dArray(workSheet);
-        $modelCols = Object.keys(workSheet[0]);
-    }
-    else {
-        $modelCols = CETOIG.removeIgCols(Object.keys($model._options.fields));
-    }
+    if($modelSelectedRecords.length) {
 
-    //prepare array
-    for(i = 0;i < $modelSelectedRecords.length; i++) {
-        for(j = 0;j < $modelSelectedRecords[i].length - 1; j++) {
-            newRow[$modelCols[j]] = $modelSelectedRecords[i][j];
+        if (workbook) {
+            workSheet = workbook.Sheets[selectedSheetName];
+            workSheet = CETOIG.sheetTo2dArray(workSheet);
+            $modelCols = Object.keys(workSheet[0]);
         }
-        preparedArray.push(newRow);
-        newRow = {};
-    }
-
-    //if worksheet was selected append data else create new table
-    if(workSheet) {
-        for(i = 0;i < $modelSelectedRecords.length; i++) { 
-            workSheet.push(preparedArray[i]);
+        else {
+            $modelCols = CETOIG.removeIgCols(Object.keys($model._options.fields));
         }
-    }
-    else {
-        workSheet = preparedArray;
-    }
 
-    //export to table
-    var wb = XLSX.utils.book_new();
-    var ws = XLSX.utils.json_to_sheet(workSheet, {header:$modelCols});
+        //prepare array
+        for(i = 0;i < $modelSelectedRecords.length; i++) {
+            for(j = 0;j < $modelSelectedRecords[i].length - 1; j++) {
+                newRow[$modelCols[j]] = $modelSelectedRecords[i][j];
+            }
+            preparedArray.push(newRow);
+            newRow = {};
+        }
 
-    XLSX.utils.book_append_sheet(wb, ws, selectedSheetName ? selectedSheetName : 'sheet');
-    XLSX.writeFile(wb, pFileName);
+        //if worksheet was selected append data else create new table
+        if(workSheet) {
+            for(i = 0;i < $modelSelectedRecords.length; i++) { 
+                workSheet.push(preparedArray[i]);
+            }
+        }
+        else {
+            workSheet = preparedArray;
+        }
+
+        //export to table
+        var wb = XLSX.utils.book_new();
+        var ws = XLSX.utils.json_to_sheet(workSheet, {header:$modelCols});
+
+        XLSX.utils.book_append_sheet(wb, ws, selectedSheetName ? selectedSheetName : 'sheet');
+        XLSX.writeFile(wb, pFileName);
+
+    } else {
+        apex.message.alert("At least 1 row must be selected!");
+    }
 
 }
 
@@ -145,7 +157,7 @@ CETOIG.insertNewValues = function(pVals,pIGName) {
         currentFileRecord = pVals[i];
 
         for(j = 0;j < excelRecordKeys.length; j++) {
-            $model.setValue($modelCurrentRecord, $modelCols[j], currentFileRecord[excelRecordKeys[j]]);
+            $model.setValue($modelCurrentRecord, $modelCols[j], currentFileRecord[excelRecordKeys[j]].toString());
         }
 
     }
@@ -154,8 +166,10 @@ CETOIG.insertNewValues = function(pVals,pIGName) {
 //Set worksheets to selectlist
 CETOIG.setWorksheetEntries = function(pSheets,pItemName) {
     var selectList = document.getElementById(pItemName);
-    var option = document.createElement('option');
+    var option;
+
     for(i = 0;i < pSheets.length; i++) {
+        option = document.createElement('option');
         option.value = option.text = pSheets[i];
         selectList.add(option);
     }
