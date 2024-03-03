@@ -1,4 +1,4 @@
-# apex-copy-excel-to-ig
+# APEX Copy Excel to Interactive Grid
 
 This Dynamic Action (DA) plug-in supports Copy - Paste, Import and Appending actions from an Excel file to an editable Interactive Grid (IG) report.
 
